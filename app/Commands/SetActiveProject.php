@@ -2,21 +2,21 @@
 
 namespace App\Commands;
 
-class SetApiToken extends BaseCommand
+class SetActiveProject extends BaseCommand
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'set:token {token}';
+    protected $signature = 'project:set {project}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Saves a new API token';
+    protected $description = 'Sets a project to work within';
 
     /**
      * Create a new command instance.
@@ -35,32 +35,30 @@ class SetApiToken extends BaseCommand
      */
     public function handle(): void
     {
-        $token = $this->argument('token');
+        $project_id =  $this->getProjectId();
 
-        if(!$this->setApiToken($token)) {
+        if(!$this->setProject($project_id)) {
             return;
         }
 
-        $this->info("API token [$token] set successfully.");
+        $this->info("Project [<comment>$project_id</comment>] activated.");
     }
 
     /**
-     * Save the API token to the Environment file
-     *
-     * @param $token
+     * @param $project_id
      * @return bool
      */
-    private function setApiToken($token)
+    private function setProject($project_id)
     {
         if(!file_exists(base_path('.env'))) {
             copy(base_path('.env.example'), base_path('.env'));
         }
 
-        $currentEnv     = file_get_contents(base_path('.env'));
-        $currentToken   = "TOGGL_API_KEY=" . env('TOGGL_API_KEY');
-        $newToken       = "TOGGL_API_KEY=" . $token;
+        $currentEnv         = file_get_contents(base_path('.env'));
+        $currentProject     = "TOGGL_ACTIVE_PROJECT=" . env('TOGGL_ACTIVE_PROJECT');
+        $newProject         = "TOGGL_ACTIVE_PROJECT=" . $project_id;
 
-        file_put_contents(base_path('.env'), str_replace($currentToken, $newToken, $currentEnv));
+        file_put_contents(base_path('.env'), str_replace($currentProject, $newProject, $currentEnv));
 
         return true;
     }

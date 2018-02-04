@@ -5,21 +5,21 @@ namespace App\Commands;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
-class GetProjects extends Command
+class CreateProject extends BaseCommand
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'projects:list';
+    protected $signature = 'project:create {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Lists all projects';
+    protected $description = 'Create a new Project within the active workspace';
 
     /**
      * Create a new command instance.
@@ -38,10 +38,18 @@ class GetProjects extends Command
      */
     public function handle(): void
     {
-        $toggl = app()->make('Toggl');
+        $name = $this->argument('name');
 
-        $projects = $toggl->getProjects(['id' => 2544337]);
-        dd($projects);
+        $response = $this->client->CreateProject([
+            'project' => [
+                'name' => $name,
+                'wid' => $this->getWorkspaceId(),
+                'billable' => env('TOGGL_DEFAULT_BILLABLE'),
+            ]
+        ]);
+        $project = $response['data'];
+
+        $this->info("Project [<comment>" . $project['name'] . "</comment>] created, id: <comment>" . $project['id'] ."</comment>.");
     }
 
     /**

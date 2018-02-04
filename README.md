@@ -5,14 +5,14 @@ A Command line interface tool for [Toggle.com](https://toggl.com) written using 
 **Configuration Commands**
 
 - [x] Set API token
-- [ ] Set active Workspace
-- [ ] Set active Project
+- [X] Set active Workspace
+- [X] Set active Project
 
 **List data Commands**
 
 - [ ] Get info on current user
-- [ ] Get Workspaces list
-- [ ] Get Projects list (within active Workspace)
+- [X] Get Workspaces list
+- [X] Get Projects list (within active Workspace)
 - [ ] Get list of running Timers
 
 **Timer Commands**

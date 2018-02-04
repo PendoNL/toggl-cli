@@ -2,10 +2,7 @@
 
 namespace App\Commands;
 
-use Illuminate\Console\Scheduling\Schedule;
-use LaravelZero\Framework\Commands\Command;
-
-class ListWorkspaces extends Command
+class ListWorkspaces extends BaseCommand
 {
     /**
      * The name and signature of the console command.
@@ -38,23 +35,30 @@ class ListWorkspaces extends Command
      */
     public function handle(): void
     {
-        $toggl = app()->make('Toggl');
+        $workspaces = $this->client->getWorkspaces([]);
 
-        $workspaces = $toggl->getWorkspaces([]);
-        foreach($workspaces as $workspace) {
-            $this->info("[" . $workspace['id'] ."] " . $workspace['name']);
+        if(!count($workspaces)) {
+            $this->error('No workspaces found, please set-up your toggle Workspace first.');
         }
+
+        $this->chooseWorkspace($workspaces);
     }
 
     /**
-	 * Define the command's schedule.
-	 *
-	 * @param  \Illuminate\Console\Scheduling\Schedule $schedule
-	 *
-	 * @return void
-	 */
-	public function schedule(Schedule $schedule): void
-	{
-		// $schedule->command(static::class)->everyMinute();
-	}
+     * @param $workspaces
+     */
+    private function chooseWorkspace($workspaces)
+    {
+        $options = [];
+
+        foreach($workspaces as $workspace) {
+            $options[] = $workspace['id'] . ' # ' .$workspace['name'];
+        }
+
+        list($workspace_id, $name) = explode("#", $this->choice('Choose a Workspace to activate', $options));
+
+        $this->call("workspace:set", [
+            'workspace' => intval($workspace_id),
+        ]);
+    }
 }
