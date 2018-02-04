@@ -10,10 +10,9 @@ A Command line interface tool for [Toggle.com](https://toggl.com) written using 
 
 **List data Commands**
 
-- [ ] Get info on current user
+- [X] Get info on current user
 - [X] Get Workspaces list
 - [X] Get Projects list (within active Workspace)
-- [ ] Get list of running Timers
 
 **Timer Commands**
 
@@ -23,6 +22,7 @@ A Command line interface tool for [Toggle.com](https://toggl.com) written using 
 - [ ] Stop active Timer(s)
 - [ ] Stop Timer at given datetime
 - [ ] Start Timer at given datetime
+- [ ] Get list of running Timers
 
 **Extra functionality**
 
