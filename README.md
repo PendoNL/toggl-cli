@@ -4,17 +4,17 @@ A Command line interface tool for [Toggle.com](https://toggl.com) written using 
 
 **Commands**
 
-- [_] Set API token
-- [_] Set active Workspace
-- [_] Set active Project
+- [ ] Set API token
+- [ ] Set active Workspace
+- [ ] Set active Project
 
 
-- [_] Get info on current user
-- [_] Get Workspaces list
-- [_] Get Projects list (within active Workspace)
+- [ ] Get info on current user
+- [ ] Get Workspaces list
+- [ ] Get Projects list (within active Workspace)
 
 
-- [_] Start a timer (within active Project)
-- [_] Start a timer (with Project as parameter)
-- [_] Stop timer (active or by timer ID)
-- [_] Shop active timer(s)
+- [ ] Start a timer (within active Project)
+- [ ] Start a timer (with Project as parameter)
+- [ ] Stop timer (active or by timer ID)
+- [ ] Shop active timer(s)
