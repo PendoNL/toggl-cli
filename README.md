@@ -14,46 +14,57 @@ Using the tool is pretty simple, as long as you have PHP >= 7.1 installed and co
 
 After following the installation instructions using the CLI tool is pretty straight forward. We start off by setting the API key:
 
+##### Set API token
 `php toggl set:token your_toggle_API_token`
 
 You may test this token by requesting information about yourself:
 
+##### Test API token
 `php toggl about:me`
 
 We assume you've already created or have access to at least one Workspace in your account. By running the follow command the CLI tool lists your Workspaces and asks you to choose which to activate:
 
+##### List Workspaces
 `php toggl workspace:list`
 
 From this point on you'll be able to do the most basic things from your command line interface. For example, let's add a new Project.
 
+##### Create a Project
 `php toggl project:create "My First Project"`
 
 You might notice this project gets actived right away, which means the tasks and timers you'll start after this step are linked to this Project. Of course, similar to selecting a Workspace, you can also select an existing Project. Once again, you'll be asked to select a Project:
 
+##### List Projects
 `php toggl project:list`
 
 Adding tasks, which is in paid plans only by the way, isn't magic anymore either. Tasks are linked to the activated Project so make sure you're in the right one while executing the following command:
 
+##### Create a Task
 `php toggl task:create "My First Task"`
 
 To list existing tasks and select one to work with, use:
 
+##### List Tasks
 `php toggl task:list`
 
 Running timers is just as easy, there are 3 commands waiting to be used! The first one creates a new TimeEntry, if a Task is activated the timer gets linked to the task, otherwise it's connected to the active project and only holds a description:
 
+##### Start a Timer
 `php toggl timer:start "My First Timer Description"`
 
 You can check the running timer from within the CLI as well. If the timer has stopped since starting (f.e. from within the Toggl web interface or application) the CLI tool will automatically deactive your active timer.
 
+##### Timer Status
 `php toggl timer:status`
 
 To stop the active timer simply run:
 
+##### Stop a Timer
 `php toggl timer:stop`
 
 There are 3 hidden commands which you most likely won't use yet. These commands are called from within the `:list` commands. I'm planning on creating shortcuts to workspaces/projects/tasks so you can set them using identifiers you can remember (f.e. `php toggl workspace:set Pendo` where `Pendo` is a shorthand to the workspace ID).
 
+##### Hidden Commands
 - `php toggl workspace:set workspace_id`
 - `php toggl project:set project_id`
 - `php toggl task:set task_id`
