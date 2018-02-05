@@ -2,6 +2,10 @@
 
 A Command line interface tool for [Toggle.com](https://toggl.com) written using Laravel Zero. This tool uses Toggl API v8.
 
+# To-do
+
+Below you can find my current plans for the tool. Feel free to make suggestions using the Issues list or by forking and creating a PR. Right now it's mainly written to fit my needs.
+
 **Configuration Commands**
 
 - [x] Set API token
