@@ -9,7 +9,7 @@ class StopTimer extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'timer:stop';
+    protected $signature = 'timer:stop {timer?}';
 
     /**
      * The console command description.
@@ -45,23 +45,8 @@ class StopTimer extends BaseCommand
         ]);
         $timer = $response['data'];
 
-        $this->info("Timer [<command>" . $timer['description'] . "</command>] stopped, ran for " . $timer['duration'] . " seconds");
+        $this->info("Timer [<comment>" . $timer['description'] . "</comment>] stopped, ran for <comment>" . $timer['duration'] . "</comment> seconds");
 
         $this->unsetTimer();
-    }
-
-    private function unsetTimer()
-    {
-        if(!file_exists(base_path('.env'))) {
-            copy(base_path('.env.example'), base_path('.env'));
-        }
-
-        $currentEnv     = file_get_contents(base_path('.env'));
-        $currentTimer   = "TOGGL_ACTIVE_TIMER=" . env('TOGGL_ACTIVE_TIMER');
-        $newTimer       = "TOGGL_ACTIVE_TIMER=";
-
-        file_put_contents(base_path('.env'), str_replace($currentTimer, $newTimer, $currentEnv));
-
-        return true;
     }
 }

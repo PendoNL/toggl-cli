@@ -8,7 +8,7 @@ Below you can find my current plans for the tool. Feel free to make suggestions 
 
 **Configuration Commands**
 
-- [x] Set API token
+- [X] Set API token
 - [X] Set active Workspace
 - [X] Set active Project
 - [X] Set active Task
@@ -23,8 +23,8 @@ Below you can find my current plans for the tool. Feel free to make suggestions 
 **Timer Commands**
 
 - [X] Create a Task
-- [ ] Start a timer for active Task or create a TimeEntry with a description
-- [ ] Stop the active Timer
+- [X] Start a timer for active Task or create a TimeEntry with a description
+- [X] Stop the active Timer
 - [ ] Get info on running Timer
 
 **Extra functionality**

@@ -99,4 +99,22 @@ abstract class BaseCommand extends Command
 
         return intval($this->argument('timer'));
     }
+
+    /**
+     * @return bool
+     */
+    public function unsetTimer()
+    {
+        if(!file_exists(base_path('.env'))) {
+            copy(base_path('.env.example'), base_path('.env'));
+        }
+
+        $currentEnv     = file_get_contents(base_path('.env'));
+        $currentTimer   = "TOGGL_ACTIVE_TIMER=" . env('TOGGL_ACTIVE_TIMER');
+        $newTimer       = "TOGGL_ACTIVE_TIMER=";
+
+        file_put_contents(base_path('.env'), str_replace($currentTimer, $newTimer, $currentEnv));
+
+        return true;
+    }
 }
