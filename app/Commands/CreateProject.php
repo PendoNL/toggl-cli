@@ -46,11 +46,16 @@ class CreateProject extends BaseCommand
             'project' => [
                 'name' => $name,
                 'wid' => $workspace_id,
+                'is_private' => false,
                 'billable' => env('TOGGL_DEFAULT_BILLABLE'),
             ]
         ]);
         $project = $response['data'];
 
         $this->info("Project [<comment>" . $project['name'] . "</comment>] created, id: <comment>" . $project['id'] ."</comment>.");
+
+        $this->call("project:set", [
+            'project' => intval($project['id']),
+        ]);
     }
 }

@@ -51,5 +51,9 @@ class CreateTask extends BaseCommand
         $task = $response['data'];
 
         $this->info("Task [<comment>" . $task['name'] . "</comment>] created, id: <comment>" . $task['id'] ."</comment>.");
+
+        $this->call("task:set", [
+            'task' => intval($task['id']),
+        ]);
     }
 }
