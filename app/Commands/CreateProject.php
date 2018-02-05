@@ -37,10 +37,15 @@ class CreateProject extends BaseCommand
     {
         $name = $this->argument('name');
 
+        if(!$workspace_id = $this->getWorkspaceId()) {
+            $this->error("Set an active Workspace first using the workspace:list command");
+            return;
+        }
+
         $response = $this->client->CreateProject([
             'project' => [
                 'name' => $name,
-                'wid' => $this->getWorkspaceId(),
+                'wid' => $workspace_id,
                 'billable' => env('TOGGL_DEFAULT_BILLABLE'),
             ]
         ]);

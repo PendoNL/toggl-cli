@@ -16,7 +16,7 @@ class ListProjects extends BaseCommand
      *
      * @var string
      */
-    protected $description = 'Lists all projects';
+    protected $description = 'Lists all projects within the active workspace';
 
     /**
      * Create a new command instance.
@@ -36,6 +36,7 @@ class ListProjects extends BaseCommand
     public function handle(): void
     {
         if(!$workspace_id = $this->getWorkspaceId()) {
+            $this->error("Set an active workspace first using the workspace:list command");
             return;
         }
 

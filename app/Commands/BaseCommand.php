@@ -57,4 +57,21 @@ abstract class BaseCommand extends Command
 
         return intval($this->argument('project'));
     }
+
+    /**
+     * @return int
+     */
+    public function getTaskId()
+    {
+        if(is_null($this->argument('task'))) {
+            if(!intval(env('TOGGLE_ACTIVE_TASK')) > 0) {
+                $this->error('Please set your active task or use the task argument.');
+                return false;
+            }
+
+            return intval(env('TOGGLE_ACTIVE_TASK'));
+        }
+
+        return intval($this->argument('task'));
+    }
 }

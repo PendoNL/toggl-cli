@@ -52,10 +52,10 @@ class ListWorkspaces extends BaseCommand
         $options = [];
 
         foreach($workspaces as $workspace) {
-            $options[] = $workspace['id'] . ' # ' .$workspace['name'];
+            $options[] = $workspace['name'] . ' #' .$workspace['id'];
         }
 
-        list($workspace_id, $name) = explode("#", $this->choice('Choose a Workspace to activate', $options));
+        list($name, $workspace_id) = explode("#", $this->choice('Choose a Workspace to activate', $options));
 
         $this->call("workspace:set", [
             'workspace' => intval($workspace_id),
