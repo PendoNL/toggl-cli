@@ -9,7 +9,7 @@ class StartTimer extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'timer:start {description} {project}';
+    protected $signature = 'timer:start {description} {task?}';
 
     /**
      * The console command description.
@@ -35,14 +35,38 @@ class StartTimer extends BaseCommand
      */
     public function handle(): void
     {
-        $timer = $this->client->StartTimeEntry([
-            'time_entry' => [
-                'description' => $this->argument('description'),
-                'pid' => $this->argument('project'),
-                'created_with' => $this->client_name,
-            ]
-        ]);
+        $data = $this->prepareTimerData();
 
-        dd($timer);
+        $response = $this->client->StartTimeEntry([
+            'time_entry' => $data,
+        ]);
+        $timer = $response['data'];
+
+        $this->call("timer:set", [
+            'timer' => intval($timer['id']),
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    private function prepareTimerData()
+    {
+        $timerData = [
+            'description' => $this->argument('description'),
+            'pid' => $this->getProjectId(),
+            'tid' => $this->getTaskId(),
+            'created_with' => $this->client_name,
+        ];
+
+        if($timerData['pid'] == false) {
+            unset($timerData['pid']);
+        }
+
+        if($timerData['tid'] == false) {
+            unset($timerData['tid']);
+        }
+
+        return $timerData;
     }
 }

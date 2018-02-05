@@ -2,21 +2,21 @@
 
 namespace App\Commands;
 
-class SetActiveTask extends BaseCommand
+class SetActiveTimer extends BaseCommand
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'task:set {task}';
+    protected $signature = 'timer:set {timer}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sets a task to work on';
+    protected $description = 'Sets the active timer';
 
     /**
      * Create a new command instance.
@@ -35,30 +35,30 @@ class SetActiveTask extends BaseCommand
      */
     public function handle(): void
     {
-        $task_id =  $this->getTaskId();
+        $timer_id =  $this->getTimerId();
 
-        if(!$this->setTask($task_id)) {
+        if(!$this->setTimer($timer_id)) {
             return;
         }
 
-        $this->info("Task [<comment>$task_id</comment>] activated.");
+        $this->info("Timer [<comment>$timer_id</comment>] is running...");
     }
 
     /**
-     * @param $task_id
+     * @param $timer_id
      * @return bool
      */
-    private function setTask($task_id)
+    private function setTimer($timer_id)
     {
         if(!file_exists(base_path('.env'))) {
             copy(base_path('.env.example'), base_path('.env'));
         }
 
         $currentEnv     = file_get_contents(base_path('.env'));
-        $currentTask    = "TOGGL_ACTIVE_TASK=" . env('TOGGL_ACTIVE_TASK');
-        $newTask        = "TOGGL_ACTIVE_TASK=" . $task_id;
+        $currentTimer   = "TOGGL_ACTIVE_TIMER=" . env('TOGGL_ACTIVE_TIMER');
+        $newTimer       = "TOGGL_ACTIVE_TIMER=" . $timer_id;
 
-        file_put_contents(base_path('.env'), str_replace($currentTask, $newTask, $currentEnv));
+        file_put_contents(base_path('.env'), str_replace($currentTimer, $newTimer, $currentEnv));
 
         return true;
     }

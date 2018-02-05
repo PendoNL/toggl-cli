@@ -29,7 +29,9 @@ abstract class BaseCommand extends Command
      */
     public function getWorkspaceId()
     {
-        if(is_null($this->argument('workspace'))) {
+        $arguments = $this->arguments();
+
+        if(!array_key_exists('workspace', $arguments) || is_null($this->argument('workspace'))) {
             if(!intval(env('TOGGL_ACTIVE_WORKSPACE')) > 0) {
                 $this->error('Please set your active workspace or use the workspace argument.');
                 return false;
@@ -46,7 +48,9 @@ abstract class BaseCommand extends Command
      */
     public function getProjectId()
     {
-        if(is_null($this->argument('project'))) {
+        $arguments = $this->arguments();
+
+        if(!array_key_exists('project', $arguments) || is_null($this->argument('project'))) {
             if(!intval(env('TOGGL_ACTIVE_PROJECT')) > 0) {
                 $this->error('Please set your active project or use the project argument.');
                 return false;
@@ -63,15 +67,36 @@ abstract class BaseCommand extends Command
      */
     public function getTaskId()
     {
-        if(is_null($this->argument('task'))) {
-            if(!intval(env('TOGGLE_ACTIVE_TASK')) > 0) {
+        $arguments = $this->arguments();
+
+        if(!array_key_exists('task', $arguments) || is_null($this->argument('task'))) {
+            if(!intval(env('TOGGL_ACTIVE_TASK')) > 0) {
                 $this->error('Please set your active task or use the task argument.');
                 return false;
             }
 
-            return intval(env('TOGGLE_ACTIVE_TASK'));
+            return intval(env('TOGGL_ACTIVE_TASK'));
         }
 
         return intval($this->argument('task'));
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimerId()
+    {
+        $arguments = $this->arguments();
+
+        if(!array_key_exists('timer', $arguments) || is_null($this->argument('timer'))) {
+            if(!intval(env('TOGGL_ACTIVE_TIMER')) > 0) {
+                $this->error('Please set your active timer or use the timer argument.');
+                return false;
+            }
+
+            return intval(env('TOGGL_ACTIVE_TIMER'));
+        }
+
+        return intval($this->argument('timer'));
     }
 }
