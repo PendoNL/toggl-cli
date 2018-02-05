@@ -2,6 +2,8 @@
 
 A Command line interface tool for [Toggle.com](https://toggl.com) written using Laravel Zero. This tool uses Toggl API v8.
 
+![Usage of the Toggl CLI tool](./demo.gif)
+
 ### Installation instructions
 
 Using the tool is pretty simple, as long as you have PHP >= 7.1 installed and composer ready to install the dependencies.
