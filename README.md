@@ -1,3 +1,5 @@
+22/05/2020: We've archived this project since we're no longer using Toggl and the project was mainly for educational purposes.
+
 # Toggl CLI
 
 A Command line interface tool for [Toggle.com](https://toggl.com) written using Laravel Zero. This tool uses Toggl API v8.
